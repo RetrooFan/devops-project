@@ -19,6 +19,9 @@ jobs:
       AWS_REGION: eu-central-1
 
     steps:
+      - name: Show vars.ENVIRONMENT
+        run: echo ${{ vars.ENVIRONMENT }}
+
       - uses: actions/checkout@v5
 
       - name: Read package version
