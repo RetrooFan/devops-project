@@ -2,12 +2,15 @@ name: Pre build
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, prod]
 
 jobs:
   pre-build:
     runs-on: ubuntu-latest
-
+    environment: >-
+      ${{ ((github.event_name == 'pull_request' && github.base_ref == 'prod') ||
+          (github.event_name == 'push' && github.ref_name == 'prod')) &&
+          'prod' || 'staging' }}
     strategy:
       matrix:
         node-version: [24.x, 26.x]
