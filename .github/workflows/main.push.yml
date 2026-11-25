@@ -11,6 +11,10 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    environment: >-
+      ${{ ((github.event_name == 'pull_request' && github.base_ref == 'prod') ||
+          (github.event_name == 'push' && github.ref_name == 'prod')) &&
+          'prod' || 'staging' }}
     env:
       AWS_REGION: eu-central-1
 
